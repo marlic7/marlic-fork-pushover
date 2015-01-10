@@ -3,6 +3,7 @@ var pushover = require('../');
 
 var fs = require('fs');
 var path = require('path');
+var tmpdir = require('os').tmpdir;
 var exists = fs.exists || path.exists;
 
 var spawn = require('child_process').spawn;
@@ -10,10 +11,10 @@ var http = require('http');
 
 var seq = require('seq');
 
-var repoDir = '/tmp/' + Math.floor(Math.random() * (1<<30)).toString(16);
-var srcDir = '/tmp/' + Math.floor(Math.random() * (1<<30)).toString(16);
-var dstDir = '/tmp/' + Math.floor(Math.random() * (1<<30)).toString(16);
-var targetDir = '/tmp/' + Math.floor(Math.random() * (1<<30)).toString(16);
+var repoDir = path.join(tmpdir(), Math.floor(Math.random() * (1<<30)).toString(16));
+var srcDir = path.join(tmpdir(), Math.floor(Math.random() * (1<<30)).toString(16));
+var dstDir = path.join(tmpdir(), Math.floor(Math.random() * (1<<30)).toString(16));
+var targetDir = path.join(tmpdir(), Math.floor(Math.random() * (1<<30)).toString(16));
 
 fs.mkdirSync(repoDir, 0700);
 fs.mkdirSync(srcDir, 0700);

@@ -26,7 +26,7 @@ test('create, push to, and clone a repo', function (t) {
     var server = http.createServer(function (req, res) {
         repos.handle(req, res);
     });
-    server.listen(port);
+    server.listen(port, '127.0.0.1');
     
     process.chdir(srcDir);
     seq()
@@ -46,14 +46,14 @@ test('create, push to, and clone a repo', function (t) {
         })
         .seq(function () {
             var ps = spawn('git', [
-                'push', 'http://localhost:' + port + '/doom', 'master'
+                'push', 'http://127.0.0.1:' + port + '/doom', 'master'
             ]);
             ps.stderr.pipe(process.stderr, { end : false });
             ps.on('exit', this.ok);
         })
         .seq(function () {
             process.chdir(dstDir);
-            spawn('git', [ 'clone', 'http://localhost:' + port + '/doom' ])
+            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom' ])
                 .on('exit', this.ok)
         })
         .seq_(function (next) {

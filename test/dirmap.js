@@ -26,7 +26,7 @@ var server = http.createServer(function (req, res) {
 });
 
 test(function (t) {
-    server.listen(0, function () {
+    server.listen(0, '127.0.0.1', function () {
         setTimeout(t.end.bind(t), 1000);
     });
 });
@@ -57,7 +57,7 @@ test('clone into programatic directories', function (t) {
         })
         .seq(function () {
             var ps = spawn('git', [
-                'push', 'http://localhost:' + port + '/doom.git', 'master'
+                'push', 'http://127.0.0.1:' + port + '/doom.git', 'master'
             ]);
             ps.on('exit', this.ok);
             ps.on('exit', function (code) {
@@ -66,7 +66,7 @@ test('clone into programatic directories', function (t) {
         })
         .seq(function () {
             process.chdir(dstDir);
-            spawn('git', [ 'clone', 'http://localhost:' + port + '/doom.git' ])
+            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom.git' ])
                 .on('exit', this.ok)
         })
         .seq_(function (next) {

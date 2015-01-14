@@ -1,4 +1,9 @@
-2015-01-14, Version 1.3.7
+2015-01-14, Version 1.3.8
+=========================
+
+
+
+2015-01-13, Version 1.3.7
 =========================
 
  * Describe fork in README (Ryan Graham)
@@ -61,16 +66,7 @@
 
  * update the dirmap test to work with auto .git inclusion (James Halliday)
 
- * using a regex instead of substr (James Halliday)
-
- * Repo name: If repo does not end with .git - then add .git to the repo name (Duncan Angus Wilkie (mrdnk))
-
  * Corrected port number in example (Maximilian Antoni)
-
-
-2013-04-06, Version 1.3.1
-=========================
-
 
 
 2013-04-06, Version 1.3.2
@@ -78,9 +74,13 @@
 
  * using a regex instead of substr (James Halliday)
 
- * `connection: close` fixes everything; 1.3.1 (James Halliday)
-
  * Repo name: If repo does not end with .git - then add .git to the repo name (Duncan Angus Wilkie (mrdnk))
+
+
+2013-04-06, Version 1.3.1
+=========================
+
+ * `connection: close` fixes everything; 1.3.1 (James Halliday)
 
 
 2013-04-05, Version 1.3.0

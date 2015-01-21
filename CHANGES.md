@@ -1,4 +1,10 @@
-2015-01-14, Version 1.3.8
+2015-01-21, Version 1.3.9
+=========================
+
+ * Remove HttpDuplex from Service prototype (Ryan Graham)
+
+
+2015-01-13, Version 1.3.8
 =========================
 
 
@@ -140,15 +146,6 @@
 
  * make missing directories in create() (James Halliday)
 
- * subdirs work (James Halliday)
-
- * failing test for subdirs (James Halliday)
-
-
-2012-09-22, Version 1.0.0
-=========================
-
-
 
 2012-09-22, Version 1.0.1
 =========================
@@ -156,6 +153,10 @@
  * subdirs work (James Halliday)
 
  * failing test for subdirs (James Halliday)
+
+
+2012-09-22, Version 1.0.0
+=========================
 
  * s/qs/querystring/ (James Halliday)
 

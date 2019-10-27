@@ -1,6 +1,7 @@
 # bps-lib-pushover
 
 This is fork of https://github.com/strongloop-forks/strong-fork-pushover
+
 Primary repo: https://github.com/substack/pushover 
 
 Serve up git repositories over http and accept git pushes.
@@ -10,7 +11,7 @@ This library makes it super easy to set up custom git push deploy logic.
 # example
 
 ``` js
-var pushover = require('pushover');
+var pushover = require('marlic-fork-pushover');
 var repos = pushover('/tmp/repos');
 
 repos.on('push', function (push) {

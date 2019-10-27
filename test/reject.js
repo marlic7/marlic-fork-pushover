@@ -71,7 +71,7 @@ test('create, push to, and clone a repo', function (t) {
         })
         .seq_(function (next) {
             var ps = spawn('git', [
-                'push', 'http://127.0.0.1:' + port + '/doom.git', 'master'
+                'push', 'http://127.0.0.1:' + port + '/doom', 'master'
             ]);
             ps.stderr.pipe(process.stderr, { end : false });
             ps.on('exit', function (code) {
@@ -81,7 +81,7 @@ test('create, push to, and clone a repo', function (t) {
         })
         .seq(setTimeout, seq, 1000)
         .seq(function () {
-            var glog = spawn('git', [ 'log' ], { cwd : repoDir + '/doom.git' });
+            var glog = spawn('git', [ 'log' ], { cwd : repoDir + '/doom' });
             glog.on('exit', function (code) {
                 t.notEqual(code, 0);
             });
@@ -95,13 +95,13 @@ test('create, push to, and clone a repo', function (t) {
     ;
     
     repos.on('push', function (push) {
-        t.equal(push.repo, 'doom.git', 'repo name');
+        t.equal(push.repo, 'doom', 'repo name');
         t.equal(push.commit, lastCommit, 'commit ok');
         t.equal(push.branch, 'master', 'master branch');
         
         t.equal(push.headers.host, '127.0.0.1:' + port, 'http host');
         t.equal(push.method, 'POST', 'is a post');
-        t.equal(push.url, '/doom.git/git-receive-pack', 'receive pack');
+        t.equal(push.url, '/doom/git-receive-pack', 'receive pack');
         
         push.reject(500, 'ACCESS DENIED');
     });

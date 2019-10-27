@@ -36,7 +36,7 @@ test('clone into programatic directories', function (t) {
     t.plan(9);
     
     repos = pushover(function (dir) {
-        t.equal(dir, 'doom.git');
+        t.equal(dir, 'doom');
         return path.join(targetDir, dir);
     });
     var port = server.address().port;
@@ -58,7 +58,7 @@ test('clone into programatic directories', function (t) {
         })
         .seq(function () {
             var ps = spawn('git', [
-                'push', 'http://127.0.0.1:' + port + '/doom.git', 'master'
+                'push', 'http://127.0.0.1:' + port + '/doom', 'master'
             ]);
             ps.on('exit', this.ok);
             ps.on('exit', function (code) {
@@ -67,11 +67,11 @@ test('clone into programatic directories', function (t) {
         })
         .seq(function () {
             process.chdir(dstDir);
-            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom.git' ])
+            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom' ])
                 .on('exit', this.ok)
         })
         .seq_(function (next) {
-            exists(dstDir + '/doom.git/a.txt', function (ex) {
+            exists(dstDir + '/doom/a.txt', function (ex) {
                 t.ok(ex, 'a.txt exists');
                 next();
             })
@@ -86,7 +86,7 @@ test('clone into programatic directories', function (t) {
     ;
     
     repos.on('push', function (push) {
-        t.equal(push.repo, 'doom.git');
+        t.equal(push.repo, 'doom');
         push.accept();
     });
     

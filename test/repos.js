@@ -78,14 +78,14 @@ test('create, push to, and clone a repo', function (t) {
         })
         .seq(function () {
             var ps = spawn('git', [
-                'push', '--tags', 'http://127.0.0.1:' + port + '/doom.git', 'master'
+                'push', '--tags', 'http://127.0.0.1:' + port + '/doom', 'master'
             ]);
             ps.stderr.pipe(process.stderr, { end : false });
             ps.on('exit', this.ok);
         })
         .seq(function () {
             process.chdir(dstDir);
-            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom.git' ])
+            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/doom' ])
                 .on('exit', this.ok)
         })
         .seq_(function (next) {
@@ -102,25 +102,25 @@ test('create, push to, and clone a repo', function (t) {
     ;
     
     repos.on('push', function (push) {
-        t.equal(push.repo, 'doom.git', 'repo name');
+        t.equal(push.repo, 'doom', 'repo name');
         t.equal(push.commit, lastCommit, 'commit ok');
         t.equal(push.branch, 'master', 'master branch');
         
         t.equal(push.headers.host, '127.0.0.1:' + port, 'http host');
         t.equal(push.method, 'POST', 'is a post');
-        t.equal(push.url, '/doom.git/git-receive-pack', 'receive pack');
+        t.equal(push.url, '/doom/git-receive-pack', 'receive pack');
         
         push.accept();
     });
 
     var firstTag = true;
     repos.on('tag', function (tag) {
-        t.equal(tag.repo, 'doom.git', 'repo name');
+        t.equal(tag.repo, 'doom', 'repo name');
         t.equal(tag.version, '0.0.' + (firstTag? 1 : 2), 'tag received');
 
         t.equal(tag.headers.host, '127.0.0.1:' + port, 'http host');
         t.equal(tag.method, 'POST', 'is a post');
-        t.equal(tag.url, '/doom.git/git-receive-pack', 'receive pack');
+        t.equal(tag.url, '/doom/git-receive-pack', 'receive pack');
 
         tag.accept();
         firstTag = false;

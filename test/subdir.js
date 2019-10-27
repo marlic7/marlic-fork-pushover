@@ -34,7 +34,7 @@ test('create, push to, and clone a repo', function (t) {
     process.chdir(srcDir);
     seq()
         .seq(function () { repos.mkdir('xyz', this) })
-        .seq(function () { repos.create('xyz/doom.git', this) })
+        .seq(function () { repos.create('xyz/doom', this) })
         .seq(function () {
             var ps = spawn('git', [ 'init' ]);
             ps.stderr.pipe(process.stderr, { end : false });
@@ -58,14 +58,14 @@ test('create, push to, and clone a repo', function (t) {
         })
         .seq(function () {
             var ps = spawn('git', [
-                'push', 'http://127.0.0.1:' + port + '/xyz/doom.git', 'master'
+                'push', 'http://127.0.0.1:' + port + '/xyz/doom', 'master'
             ]);
             ps.stderr.pipe(process.stderr, { end : false });
             ps.on('exit', this.ok);
         })
         .seq(function () {
             process.chdir(dstDir);
-            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/xyz/doom.git' ])
+            spawn('git', [ 'clone', 'http://127.0.0.1:' + port + '/xyz/doom' ])
                 .on('exit', this.ok)
         })
         .seq_(function (next) {
@@ -82,13 +82,13 @@ test('create, push to, and clone a repo', function (t) {
     ;
     
     repos.on('push', function (push) {
-        t.equal(push.repo, 'xyz/doom.git', 'repo name');
+        t.equal(push.repo, 'xyz/doom', 'repo name');
         t.equal(push.commit, lastCommit, 'commit ok');
         t.equal(push.branch, 'master', 'master branch');
         
         t.equal(push.headers.host, '127.0.0.1:' + port, 'http host');
         t.equal(push.method, 'POST', 'is a post');
-        t.equal(push.url, '/xyz/doom.git/git-receive-pack', 'receive pack');
+        t.equal(push.url, '/xyz/doom/git-receive-pack', 'receive pack');
         
         push.accept();
     });

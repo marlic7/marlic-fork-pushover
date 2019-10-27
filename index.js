@@ -43,10 +43,7 @@ Git.prototype.mkdir = function (dir, cb) {
 Git.prototype.create = function (repo, cb) {
     var self = this;
     if (typeof cb !== 'function') cb = function () {};
-    var cwd = process.cwd();
-    
-    if (!/\.git$/.test(repo)) repo += '.git';
-    
+
     self.exists(repo, function (ex) {
         if (!ex) self.mkdir(repo, next)
         else next()
